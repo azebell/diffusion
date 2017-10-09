@@ -15,6 +15,7 @@ int main(int argc, char** argv) {
 	double tstep, tacc;
 	double min, max;
 	double h;
+	double dTerm;
 	double dc;
 
 	const double C = pow(10,21);
@@ -31,9 +32,10 @@ int main(int argc, char** argv) {
 				mval(A,i,j,k) = 0.0;
 
 	h = 1/pow(L/M, 2);
-
 	tstep = L/(u*M);
 	tacc = 0.0;
+	dTerm = D*tstep*h;
+
 
 	printf("%5s = %f\n%5s = %f\n%5s = %d\n", "C", C, "L", L, "M", M);
 	printf("%5s = %f\n%5s = %.3f\n", "u", u, "D", D);
@@ -55,7 +57,7 @@ int main(int argc, char** argv) {
 
 								if( (unsigned)l<M && (unsigned)m<M && (unsigned)n<M ){
 									if( abs(i-l) + abs(j-m) + abs(k-n) == 1 ) {
-										dc = (D*( mval(A,l,m,n) - mval(A,i,j,k) )*tstep)*h;
+										dc = dTerm*( mval(A,l,m,n) - mval(A,i,j,k) );
 										mval(A,i,j,k) = mval(A,i,j,k) + dc;
 										mval(A,l,m,n) = mval(A,l,m,n) - dc;
 									}
