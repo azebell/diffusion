@@ -14,9 +14,7 @@ int main(int argc, char** argv) {
 	double* A;
 	double tstep, tacc;
 	double min, max;
-	double h;
-	double dTerm;
-	double dc;
+	double dTerm, dc;
 
 	const double C = pow(10,21);
 	const double L = 5;
@@ -26,24 +24,36 @@ int main(int argc, char** argv) {
 
 	A = malloc(M*M*M * sizeof(double));
 
-	for(i=0; i<M; i++)
-		for(j=0; j<M; j++)
-			for(k=0; k<M; k++)
+	// initialize the array values to 0
+	for(i=0; i<M; i++) {
+		for(j=0; j<M; j++) {
+			for(k=0; k<M; k++) {
 				mval(A,i,j,k) = 0.0;
+			}
+		}
+	}
 
-	h = 1/pow(L/M, 2);
 	tstep = L/(u*M);
 	tacc = 0.0;
-	dTerm = D*tstep*h;
+
+	// dTerm is the factor used when moving particles from 
+	// one cube to another
+	// dTerm = D * tstep / h^2
+	dTerm = D*tstep/pow(L/M, 2);
 
 
 	printf("%5s = %f\n%5s = %f\n%5s = %d\n", "C", C, "L", L, "M", M);
 	printf("%5s = %f\n%5s = %.3f\n", "u", u, "D", D);
-	printf("h: %f\ntstep: %f\n\n", h, tstep);
+	printf("tstep: %f\n\n", tstep);
 
+	// set the starting position of the 
+	// concentration of particles
 	mval(A,0,0,0) = C;
-	max = mval(A,0,0,0);
-	min = mval(A,(M-1),(M-1),(M-1));
+
+	// the starting max will always be C
+	// and the initial min will always be 0
+	max = C;
+	min = 0;
 
 	while(min <= 0.99*max) {
 		tacc = tacc+tstep;
@@ -55,6 +65,8 @@ int main(int argc, char** argv) {
 						for(m=j-1; m<j+2; m++) {
 							for(n=k-1; n<k+2; n++) {
 
+								// if cube l,m,n is exactly 1 unit away
+								// and also within the array bounds
 								if( (unsigned)l<M && (unsigned)m<M && (unsigned)n<M ){
 									if( abs(i-l) + abs(j-m) + abs(k-n) == 1 ) {
 										dc = dTerm*( mval(A,l,m,n) - mval(A,i,j,k) );
@@ -70,8 +82,19 @@ int main(int argc, char** argv) {
 			}
 		}
 
-		max = mval(A,0,0,0);
-		min = mval(A,(M-1),(M-1),(M-1));
+		// update the current min and max
+		min = max;
+		max = 0.0;
+		for(i=0; i<M; i++) {
+			for(j=0; j<M; j++) {
+				for(k=0; k<M; k++) {
+					if(mval(A,i,j,k) < min)
+						min = mval(A,i,j,k);
+					if(mval(A,i,j,k) > max)
+						max = mval(A,i,j,k);
+				}
+			}
+		}
 
 	}
 
