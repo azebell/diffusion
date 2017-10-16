@@ -60,8 +60,8 @@ static public void Main() {
 
 								// if cube l,m,n is exactly 1 unit away
 								// and also within the array bounds
-								if( (uint)l<M && (uint)m<M && (uint)n<M ){
-									if( Math.Abs(i-l) + Math.Abs(j-m) + Math.Abs(k-n) == 1 ) {
+								if( Math.Abs(i-l) + Math.Abs(j-m) + Math.Abs(k-n) == 1 ) {
+									if( (uint)l<M && (uint)m<M && (uint)n<M ) {
 										dc = dTerm*( A[l,m,n] - A[i,j,k] );
 										A[i,j,k] = A[i,j,k] + dc;
 										A[l,m,n] = A[l,m,n] - dc;

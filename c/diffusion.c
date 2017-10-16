@@ -67,8 +67,8 @@ int main(int argc, char** argv) {
 
 								// if cube l,m,n is exactly 1 unit away
 								// and also within the array bounds
-								if( (unsigned)l<M && (unsigned)m<M && (unsigned)n<M ){
-									if( abs(i-l) + abs(j-m) + abs(k-n) == 1 ) {
+								if( abs(i-l) + abs(j-m) + abs(k-n) == 1 ) {
+									if( (unsigned)l<M && (unsigned)m<M && (unsigned)n<M ) {
 										dc = dTerm*( mval(A,l,m,n) - mval(A,i,j,k) );
 										mval(A,i,j,k) = mval(A,i,j,k) + dc;
 										mval(A,l,m,n) = mval(A,l,m,n) - dc;
