@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 
 C = 1e21
 L = 5
