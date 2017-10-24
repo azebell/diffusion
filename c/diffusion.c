@@ -16,7 +16,7 @@ int main(int argc, char** argv) {
 	double min, max;
 	double dTerm, dc;
 
-	const double C = pow(10,21);
+	const double C = 1e21;
 	const double L = 5;
 	const int M = 10;
 	const double u = 250;
@@ -99,8 +99,8 @@ int main(int argc, char** argv) {
 	}
 
 	printf("%s: %.2f seconds\n", "Time", tacc);
-	printf("%s: %.1fE17\n", "Min", min/pow(10,17));
-	printf("%s: %.1fE17\n", "Max", max/pow(10,17));
+	printf("%s: %.1E\n", "Min", min);
+	printf("%s: %.1E\n", "Max", max);
 	printf("%s: %f\n", "Ratio", min/max);
 
 	free(A);
