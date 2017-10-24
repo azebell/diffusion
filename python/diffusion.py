@@ -15,6 +15,10 @@ dTerm = D*tstep/((L/M)**2)
 A[0][0][0] = C
 
 
+# using the builtin min/max functions
+# get the min/max by getting the min/max
+# from each sublist in the triple nested
+# list
 biggest = max(list(map(max, map(max, A))))
 smallest = min(list(map(min, map(min, A))))
 
