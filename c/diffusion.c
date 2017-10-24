@@ -10,7 +10,7 @@ double pow(double, double);
 int main(int argc, char** argv) {
 
 
-	int i, j, k, l, m, n;
+	int i, j, k;
 	double* A;
 	double tstep, tacc;
 	double min, max;
@@ -61,23 +61,38 @@ int main(int argc, char** argv) {
 		for(i=0; i<M; i++) {
 			for(j=0; j<M; j++) {
 				for(k=0; k<M; k++) {
-					for(l=i-1; l<i+2; l++) {
-						for(m=j-1; m<j+2; m++) {
-							for(n=k-1; n<k+2; n++) {
 
-								// if cube l,m,n is exactly 1 unit away
-								// and also within the array bounds
-								if( abs(i-l) + abs(j-m) + abs(k-n) == 1 ) {
-									if( (unsigned)l<M && (unsigned)m<M && (unsigned)n<M ) {
-										dc = dTerm*( mval(A,l,m,n) - mval(A,i,j,k) );
-										mval(A,i,j,k) = mval(A,i,j,k) + dc;
-										mval(A,l,m,n) = mval(A,l,m,n) - dc;
-									}
-								}
-
-							}
-						}
+					if(i+1<M) {
+						dc = dTerm*( mval(A,(i+1),j,k) - mval(A,i,j,k) );
+						mval(A,i,j,k) = mval(A,i,j,k) + dc;
+						mval(A,(i+1),j,k) = mval(A,(i+1),j,k) - dc;
 					}
+					if(j+1<M) {
+						dc = dTerm*( mval(A,i,(j+1),k) - mval(A,i,j,k) );
+						mval(A,i,j,k) = mval(A,i,j,k) + dc;
+						mval(A,i,(j+1),k) = mval(A,i,(j+1),k) - dc;
+					}
+					if(k+1<M) {
+						dc = dTerm*( mval(A,i,j,(k+1)) - mval(A,i,j,k) );
+						mval(A,i,j,k) = mval(A,i,j,k) + dc;
+						mval(A,i,j,(k+1)) = mval(A,i,j,(k+1)) - dc;
+					}
+					if(i-1>=0) {
+						dc = dTerm*( mval(A,(i-1),j,k) - mval(A,i,j,k) );
+						mval(A,i,j,k) = mval(A,i,j,k) + dc;
+						mval(A,(i-1),j,k) = mval(A,(i-1),j,k) - dc;
+					}
+					if(j-1>=0) {
+						dc = dTerm*( mval(A,i,(j-1),k) - mval(A,i,j,k) );
+						mval(A,i,j,k) = mval(A,i,j,k) + dc;
+						mval(A,i,(j-1),k) = mval(A,i,(j-1),k) - dc;
+					}
+					if(k-1>=0) {
+						dc = dTerm*( mval(A,i,j,(k-1)) - mval(A,i,j,k) );
+						mval(A,i,j,k) = mval(A,i,j,k) + dc;
+						mval(A,i,j,(k-1)) = mval(A,i,j,(k-1)) - dc;
+					}
+
 				}
 			}
 		}
