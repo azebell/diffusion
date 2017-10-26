@@ -1,5 +1,5 @@
 
-all: c
+all: c fortran
 
 
 c: $(patsubst c/%.c, c/%.exe, $(wildcard c/*.c))
@@ -24,6 +24,10 @@ run: all
 	@echo "C"
 	@echo "----------------"
 	c/diffusion.exe
+	@echo "----------------"
+	@echo "FORTRAN"
+	@echo "----------------"
+	fortran/diffusion.exe
 
 clean:
 	rm */*.exe

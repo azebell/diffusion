@@ -24,6 +24,14 @@ tacc = 0.0
 
 dTerm = D*tstep/((L/M)**2)
 
+print *, "C =", C
+print *, "L =", L
+print *, "M =", M
+print *, "u =", u
+print *, "D =", D
+print *, "tstep =", tstep
+print *
+
 allocate(A(M,M,M), STAT=mem_stat)
 if(mem_stat/=0) STOP "MEMORY ALLOCATION ERROR"
 forall(i=1:M,j=1:M,k=1:M) A(i,j,k) = 0.0
