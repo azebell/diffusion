@@ -13,6 +13,11 @@ csharp: $(patsubst csharp/%.cs, csharp/%.exe, $(wildcard csharp/*.cs))
 %.exe: %.cs
 	mcs $^ -o $@
 
+fortran: $(patsubst fortran/%.f90, fortran/%.exe, $(wildcard fortran/*.f90))
+
+%.exe: %.f90
+	gfortran $^ -o $@ -O3
+
 
 run: all
 	@echo "----------------"
@@ -21,4 +26,4 @@ run: all
 	c/diffusion.exe
 
 clean:
-	rm */*.o */*.exe
+	rm */*.exe
