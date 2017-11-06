@@ -16,7 +16,7 @@ To compile and run the C# program:
 ```
 $ cd csharp
 $ mcs diffusion.cs
-$ ./diffusion.exe
+$ mono ./diffusion.exe
 ```
 
 ## FORTRAN
