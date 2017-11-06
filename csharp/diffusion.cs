@@ -48,28 +48,46 @@ static public void Main() {
 	max = C;
 	min = 0;
 
+
+	// for each block in the room,
+	// move particles between adjacent blocks
+	// that have a common face
+	// until the room has equilibrated
 	while(min <= 0.99*max) {
 		tacc = tacc+tstep;
 
 		for(int i=0; i<M; i++) {
 			for(int j=0; j<M; j++) {
 				for(int k=0; k<M; k++) {
-					for(int l=i-1; l<i+2; l++) {
-						for(int m=j-1; m<j+2; m++) {
-							for(int n=k-1; n<k+2; n++) {
-
-								// if cube l,m,n is exactly 1 unit away
-								// and also within the array bounds
-								if( Math.Abs(i-l) + Math.Abs(j-m) + Math.Abs(k-n) == 1 ) {
-									if( (uint)l<M && (uint)m<M && (uint)n<M ) {
-										dc = dTerm*( A[l,m,n] - A[i,j,k] );
-										A[i,j,k] = A[i,j,k] + dc;
-										A[l,m,n] = A[l,m,n] - dc;
-									}
-								}
-
-							}
-						}
+					if (i+1<M) {
+						dc = dTerm*( A[i+1][j][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i+1][j][k] = A[i+1][j][k] - dc
+					}
+					if (j+1<M) {
+						dc = dTerm*( A[i][j+1][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j+1][k] = A[i][j+1][k] - dc
+					}
+					if (k+1<M) {
+						dc = dTerm*( A[i][j][k+1] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j][k+1] = A[i][j][k+1] - dc
+					}
+					if (i-1>=0) {
+						dc = dTerm*( A[i-1][j][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i-1][j][k] = A[i-1][j][k] - dc
+					}
+					if (j-1>=0) {
+						dc = dTerm*( A[i][j-1][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j-1][k] = A[i][j-1][k] - dc
+					}
+					if (k-1>=0) {
+						dc = dTerm*( A[i][j][k-1] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j][k-1] = A[i][j][k-1] - dc
 					}
 				}
 			}

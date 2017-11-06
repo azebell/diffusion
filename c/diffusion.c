@@ -55,6 +55,11 @@ int main(int argc, char** argv) {
 	max = C;
 	min = 0;
 
+
+	// for each block in the room,
+	// move particles between adjacent blocks
+	// that have a common face
+	// until the room has equilibrated
 	while(min <= 0.99*max) {
 		tacc = tacc+tstep;
 

@@ -22,6 +22,9 @@ D = 0.175
 tstep = L/(u*M)
 tacc = 0.0
 
+! dTerm is the factor used when moving particles from 
+! one cube to another
+! dTerm = D * tstep / h^2
 dTerm = D*tstep/((L/M)**2)
 
 print *, "C =", C
@@ -36,11 +39,18 @@ allocate(A(M,M,M), STAT=mem_stat)
 if(mem_stat/=0) STOP "MEMORY ALLOCATION ERROR"
 forall(i=1:M,j=1:M,k=1:M) A(i,j,k) = 0.0
 
+! set the starting position
+! of the concentration
 A(1,1,1) = C
 
 maximum = maxval(A)
 minimum = minval(A)
 
+
+! for each block in the room,
+! move particles between adjacent blocks
+! that have a common face
+! until the room has equilibrated
 do while(minimum .lt. maximum*0.99)
     tacc = tacc+tstep
     do i = 1, M
@@ -81,6 +91,8 @@ do while(minimum .lt. maximum*0.99)
             end do
         end do
     end do
+
+    ! update the max and min
     maximum = maxval(A)
     minimum = minval(A)
 end do

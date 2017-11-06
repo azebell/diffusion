@@ -9,11 +9,17 @@
 
 (defvar A)
 (setf A (make-array (list M M M) :element-type 'double-float))
+
+; set the starting position of the
+; concentration of particles
 (setf (aref A 0 0 0) C)
 
 (defvar tstep (/ L (* u M)))
 (defvar tacc 0.0d0)
 
+; dTerm is the factor used when moving particles from 
+; one cube to another
+; dTerm = D * tstep / h^2
 (defvar dTerm (/ (* Dif tstep) (expt (/ L M) 2)))
 (defvar dc 0.0d0)
 
@@ -30,6 +36,11 @@
 (format t "max = ~d~%" maxval)
 (format t "min = ~d~%" minval)
 
+
+; for each block in the room,
+; move particles between adjacent blocks
+; that have a common face
+; until the room has equilibrated
 (loop 
 	(setf tacc (+ tacc tstep))
 	(dotimes(i M)
@@ -68,6 +79,8 @@
 			)
 		)
 	)
+
+	; update the max and min
 	(setf maxval (aref A 0 0 0))
 	(setf minval (aref A (- M 1) (- M 1) (- M 1)))
 	(when (> (/ minval maxval) 0.99) (return))

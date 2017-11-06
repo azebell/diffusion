@@ -11,10 +11,14 @@ A = [[[0.0 for i in range(M)] for j in range(M)] for k in range(M)]
 tstep = L/(u*M)
 tacc = 0.0
 
+# dTerm is the factor used when moving particles from 
+# one cube to another
+# dTerm = D * tstep / h^2
 dTerm = D*tstep/((L/M)**2)
 
+# set the starting position of the
+# concentration of particles
 A[0][0][0] = C
-
 
 # using the builtin min/max functions
 # get the min/max by getting the min/max
@@ -30,6 +34,11 @@ print("u = ", u)
 print("D = ", D)
 print("tstep = ", tstep)
 
+
+# for each block in the room,
+# move particles between adjacent blocks
+# that have a common face
+# until the room has equilibrated
 while smallest <= 0.99*biggest:
 	tacc = tacc+tstep
 	for i in range(M):
@@ -59,6 +68,8 @@ while smallest <= 0.99*biggest:
 					dc = dTerm*( A[i][j][k-1] - A[i][j][k] )
 					A[i][j][k] = A[i][j][k] + dc
 					A[i][j][k-1] = A[i][j][k-1] - dc
+
+	# update the max and min
 	biggest = max(list(map(max, map(max, A))))
 	smallest = min(list(map(min, map(min, A))))
 

@@ -14,9 +14,13 @@ func main() {
 	var tstep = L/(u*float64(M))
 	var tacc = 0.0
 
+
+	// dTerm is the factor used when moving particles from 
+	// one cube to another
+	// dTerm = D * tstep / h^2
 	var dTerm = D*tstep/math.Pow((L/float64(M)), 2)
 
-	// allocate composed 2d array
+	// allocate 3d array
 	A := make([][][]float64, M)
 	for i := range A {
 		A[i] = make([][]float64, M)
@@ -34,12 +38,21 @@ func main() {
 	fmt.Printf("tacc = %f\n", tacc)
 	fmt.Printf("dTerm = %f\n\n", dTerm)
 
+	// set the starting position of the 
+	// concentration of particles
 	A[0][0][0] = C
 
+	// the starting max will always be C
+	// and the initial min will always be 0
 	var max = C
 	var min = 0.0
 	var dc = 0.0
 
+
+	// for each block in the room,
+	// move particles between adjacent blocks
+	// that have a common face
+	// until the room has equilibrated
 	for (min <= 0.99*max) {
 		tacc += tstep
 		for i := range A {
@@ -81,6 +94,8 @@ func main() {
 			}
 		}
 
+
+		// update the max and min
 		max = 0
 		min = C
 		for i := range A {
