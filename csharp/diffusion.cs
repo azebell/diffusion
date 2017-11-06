@@ -60,34 +60,34 @@ static public void Main() {
 			for(int j=0; j<M; j++) {
 				for(int k=0; k<M; k++) {
 					if (i+1<M) {
-						dc = dTerm*( A[i+1][j][k] - A[i][j][k] )
-						A[i][j][k] = A[i][j][k] + dc
-						A[i+1][j][k] = A[i+1][j][k] - dc
+						dc = dTerm*( A[i+1,j,k] - A[i,j,k] );
+						A[i,j,k] = A[i,j,k] + dc;
+						A[i+1,j,k] = A[i+1,j,k] - dc;
 					}
 					if (j+1<M) {
-						dc = dTerm*( A[i][j+1][k] - A[i][j][k] )
-						A[i][j][k] = A[i][j][k] + dc
-						A[i][j+1][k] = A[i][j+1][k] - dc
+						dc = dTerm*( A[i,j+1,k] - A[i,j,k] );
+						A[i,j,k] = A[i,j,k] + dc;
+						A[i,j+1,k] = A[i,j+1,k] - dc;
 					}
 					if (k+1<M) {
-						dc = dTerm*( A[i][j][k+1] - A[i][j][k] )
-						A[i][j][k] = A[i][j][k] + dc
-						A[i][j][k+1] = A[i][j][k+1] - dc
+						dc = dTerm*( A[i,j,k+1] - A[i,j,k] );
+						A[i,j,k] = A[i,j,k] + dc;
+						A[i,j,k+1] = A[i,j,k+1] - dc;
 					}
 					if (i-1>=0) {
-						dc = dTerm*( A[i-1][j][k] - A[i][j][k] )
-						A[i][j][k] = A[i][j][k] + dc
-						A[i-1][j][k] = A[i-1][j][k] - dc
+						dc = dTerm*( A[i-1,j,k] - A[i,j,k] );
+						A[i,j,k] = A[i,j,k] + dc;
+						A[i-1,j,k] = A[i-1,j,k] - dc;
 					}
 					if (j-1>=0) {
-						dc = dTerm*( A[i][j-1][k] - A[i][j][k] )
-						A[i][j][k] = A[i][j][k] + dc
-						A[i][j-1][k] = A[i][j-1][k] - dc
+						dc = dTerm*( A[i,j-1,k] - A[i,j,k] );
+						A[i,j,k] = A[i,j,k] + dc;
+						A[i,j-1,k] = A[i,j-1,k] - dc;
 					}
 					if (k-1>=0) {
-						dc = dTerm*( A[i][j][k-1] - A[i][j][k] )
-						A[i][j][k] = A[i][j][k] + dc
-						A[i][j][k-1] = A[i][j][k-1] - dc
+						dc = dTerm*( A[i,j,k-1] - A[i,j,k] );
+						A[i,j,k] = A[i,j,k] + dc;
+						A[i,j,k-1] = A[i,j,k-1] - dc;
 					}
 				}
 			}
