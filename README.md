@@ -23,7 +23,7 @@ $ mono ./diffusion.exe
 To compile and run the FORTRAN program:
 ```
 $ cd fortran
-$ gfortran diffusion.f90
+$ gfortran diffusion.f90 -O3 -o diffusion.exe
 $ ./diffusion.exe
 ```
 
