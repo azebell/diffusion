@@ -1,0 +1,105 @@
+package main
+
+import "fmt"
+import "math"
+
+func main() {
+
+	var C float64 = 1e21
+	var L float64 = 5.0
+	var M int = 10
+	var u float64 = 250.0
+	var D float64 = 0.175
+
+	var tstep = L/(u*float64(M))
+	var tacc = 0.0
+
+	var dTerm = D*tstep/math.Pow((L/float64(M)), 2)
+
+	// allocate composed 2d array
+	A := make([][][]float64, M)
+	for i := range A {
+		A[i] = make([][]float64, M)
+		for j := range A[i] {
+			A[i][j] = make([]float64, M)
+		}
+	}
+
+	fmt.Printf("C = %f\n", C)
+	fmt.Printf("L = %f\n", L)
+	fmt.Printf("M = %d\n", M)
+	fmt.Printf("u = %f\n", u)
+	fmt.Printf("D = %f\n", D)
+	fmt.Printf("tstep = %f\n", tstep)
+	fmt.Printf("tacc = %f\n", tacc)
+	fmt.Printf("dTerm = %f\n\n", dTerm)
+
+	A[0][0][0] = C
+
+	var max = C
+	var min = 0.0
+	var dc = 0.0
+
+	for (min <= 0.99*max) {
+		tacc += tstep
+		for i := range A {
+			for j := range A[i] {
+				for k := range A[i][j] {
+
+					if (i+1<M) {
+						dc = dTerm*( A[i+1][j][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i+1][j][k] = A[i+1][j][k] - dc
+					}
+					if (j+1<M) {
+						dc = dTerm*( A[i][j+1][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j+1][k] = A[i][j+1][k] - dc
+					}
+					if (k+1<M) {
+						dc = dTerm*( A[i][j][k+1] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j][k+1] = A[i][j][k+1] - dc
+					}
+					if (i-1>=0) {
+						dc = dTerm*( A[i-1][j][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i-1][j][k] = A[i-1][j][k] - dc
+					}
+					if (j-1>=0) {
+						dc = dTerm*( A[i][j-1][k] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j-1][k] = A[i][j-1][k] - dc
+					}
+					if (k-1>=0) {
+						dc = dTerm*( A[i][j][k-1] - A[i][j][k] )
+						A[i][j][k] = A[i][j][k] + dc
+						A[i][j][k-1] = A[i][j][k-1] - dc
+					}
+
+				}
+			}
+		}
+
+		max = 0
+		min = C
+		for i := range A {
+			for j := range A[i] {
+				for k := range A[i][j] {
+					if (A[i][j][k] < min && A[i][j][k] >= 0) {
+						min = A[i][j][k]
+					}
+					if (A[i][j][k] > max) {
+						max = A[i][j][k]
+					}
+				}
+			}
+		}
+
+	}
+
+	fmt.Printf("tacc = %f\n", tacc)
+	fmt.Printf("max = %.1e\n", max)
+	fmt.Printf("min = %.1e\n", min)
+
+}
