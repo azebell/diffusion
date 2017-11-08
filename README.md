@@ -1,4 +1,7 @@
+
 # Diffusion Simulation
+
+Code checked for mass consistency on 11/8/17 
 
 This program runs a three dimensional simulation of the diffusion of particles in a cube shaped room. The precision of the simulation is determined by the number of blocks inside of the room. A larger number takes longer to calculate, but is more accurate. 
 
