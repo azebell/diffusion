@@ -6,6 +6,8 @@ M = 10
 u = 250
 D = 0.175
 
+partition = True
+
 A = [[[0.0 for i in range(M)] for j in range(M)] for k in range(M)]
 
 tstep = L/(u*M)
@@ -16,16 +18,23 @@ tacc = 0.0
 # dTerm = D * tstep / h^2
 dTerm = D*tstep/((L/M)**2)
 
+
+# if there is to be a partition
+# assign -1 to the blocks 
+# serving as the barrier
+if partition:
+	for i in range(M):
+			for j in range(M):
+				for k in range(M):
+					if i==M/2 and j>=M/2:
+						A[i][j][k] = -1.0
+
 # set the starting position of the
 # concentration of particles
 A[0][0][0] = C
 
-# using the builtin min/max functions
-# get the min/max by getting the min/max
-# from each sublist in the triple nested
-# list
-biggest = max(list(map(max, map(max, A))))
-smallest = min(list(map(min, map(min, A))))
+biggest = C
+smallest = 0.0
 
 print("C = ", C)
 print("L = ", L)
@@ -76,8 +85,15 @@ while smallest <= 0.99*biggest:
 					A[i][j][k-1] = A[i][j][k-1] - dc
 
 	# update the max and min
-	biggest = max(list(map(max, map(max, A))))
-	smallest = min(list(map(min, map(min, A))))
+	biggest = 0.0
+	smallest = C
+	for i in range(M):
+		for j in range(M):
+			for k in range(M):
+				if A[i][j][k]<smallest and A[i][j][k]>=0:
+					smallest = A[i][j][k]
+				if A[i][j][k]>biggest:
+					biggest = A[i][j][k]
 
 print("Time", tacc, "seconds")
 print("min", smallest)
