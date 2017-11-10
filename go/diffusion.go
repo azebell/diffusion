@@ -11,6 +11,8 @@ func main() {
 	var u float64 = 250.0
 	var D float64 = 0.175
 
+	var partition = true
+
 	var tstep = L/(u*float64(M))
 	var tacc = 0.0
 
@@ -37,6 +39,20 @@ func main() {
 	fmt.Printf("tstep = %f\n", tstep)
 	fmt.Printf("tacc = %f\n", tacc)
 	fmt.Printf("dTerm = %f\n\n", dTerm)
+
+	// if there is to be a partition
+	// assign -1 to the blocks 
+	// serving as the barrier
+	if(partition) {
+		for i := range A {
+			for j := range A[i] {
+				for k := range A[i][j] {
+					if (i==M/2 && j>=M/2)
+						A[i][j][k] = -1.0
+				}
+			}
+		}
+	}
 
 	// set the starting position of the 
 	// concentration of particles
