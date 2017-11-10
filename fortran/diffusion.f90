@@ -48,7 +48,7 @@ if (partition) then
     do i = 1, M
         do j = 1, M
             do k = 1, M
-                if (i .eq. M/2 .and. j .gt. M/2) then
+                if (i .eq. M/2 .and. j .ge. M/2) then
                     A(i,j,k) = -1.0
                 end if
             end do

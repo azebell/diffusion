@@ -48,7 +48,7 @@ static public void Main() {
 		for(int i=0; i<M; i++) {
 			for(int j=0; j<M; j++) {
 				for(int k=0; k<M; k++) {
-					if(i==M/2 && j>=M/2) {
+					if(i==M/2-1 && j>=M/2-1) {
 						A[i,j,k] = -1.0;
 					}
 				}

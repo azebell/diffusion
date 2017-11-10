@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
 				// if there is to be a partition
 				// assign -1 to the blocks 
 				// serving as the barrier
-				if(partition && i==M/2 && j>=M/2) {
+				if(partition && i==M/2-1 && j>=M/2-1) {
 					mval(A,i,j,k) = -1.0;
 				}
 				else {

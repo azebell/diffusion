@@ -47,7 +47,7 @@ func main() {
 		for i := range A {
 			for j := range A[i] {
 				for k := range A[i][j] {
-					if (i==M/2 && j>=M/2) {
+					if (i==M/2-1 && j>=M/2-1) {
 						A[i][j][k] = -1.0
 					}
 				}

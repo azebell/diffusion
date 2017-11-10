@@ -26,7 +26,7 @@ if partition:
 	for i in range(M):
 			for j in range(M):
 				for k in range(M):
-					if i==M/2 and j>=M/2:
+					if i==M/2-1 and j>=M/2-1:
 						A[i][j][k] = -1.0
 
 # set the starting position of the
