@@ -8,6 +8,7 @@ static public void Main() {
 	double tstep, tacc;
 	double min, max;
 	double dTerm, dc;
+	bool partition = true;
 
 	double C = Math.Pow(10,21);
 	const double L = 5;
@@ -38,6 +39,25 @@ static public void Main() {
 	Console.WriteLine("C = " + C + "\nL = " + L + "\nM = " + M);
 	Console.WriteLine("u = " + u + "\nD = " + D);
 	Console.WriteLine("tstep: " + tstep);
+
+
+	// if there is to be a partition
+	// assign -1 to the blocks 
+	// serving as the barrier
+	if (partition) {
+		for(int i=0; i<M; i++) {
+			for(int j=0; j<M; j++) {
+				for(int k=0; k<M; k++) {
+					if(i==M/2 && j>=M/2) {
+						A[i,j,k] = -1.0;
+					}
+					Console.Write(A[i,j,k] + " ");
+				}
+				Console.WriteLine();
+			}
+			Console.WriteLine();
+		}
+	}
 
 	// set the starting position of the 
 	// concentration of particles
