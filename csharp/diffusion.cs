@@ -51,11 +51,8 @@ static public void Main() {
 					if(i==M/2 && j>=M/2) {
 						A[i,j,k] = -1.0;
 					}
-					Console.Write(A[i,j,k] + " ");
 				}
-				Console.WriteLine();
 			}
-			Console.WriteLine();
 		}
 	}
 
@@ -119,7 +116,7 @@ static public void Main() {
 		for(int i=0; i<M; i++) {
 			for(int j=0; j<M; j++) {
 				for(int k=0; k<M; k++) {
-					if(A[i,j,k] < min)
+					if(A[i,j,k] < min && A[i,j,k] >= 0)
 						min = A[i,j,k];
 					if(A[i,j,k] > max)
 						max = A[i,j,k];
@@ -129,6 +126,7 @@ static public void Main() {
 
 	}
 
+	Console.WriteLine();
 	Console.WriteLine("Time: " + tacc);
 	Console.WriteLine("Min: " + min);
 	Console.WriteLine("Max: " + max);
