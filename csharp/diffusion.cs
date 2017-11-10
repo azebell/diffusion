@@ -59,32 +59,32 @@ static public void Main() {
 		for(int i=0; i<M; i++) {
 			for(int j=0; j<M; j++) {
 				for(int k=0; k<M; k++) {
-					if (i+1<M) {
+					if (i+1<M && A[i,j,k]!=-1 && A[i+1,j,k]!=-1) {
 						dc = dTerm*( A[i+1,j,k] - A[i,j,k] );
 						A[i,j,k] = A[i,j,k] + dc;
 						A[i+1,j,k] = A[i+1,j,k] - dc;
 					}
-					if (j+1<M) {
+					if (j+1<M && A[i,j,k]!=-1 && A[i,j+1,k]!=-1) {
 						dc = dTerm*( A[i,j+1,k] - A[i,j,k] );
 						A[i,j,k] = A[i,j,k] + dc;
 						A[i,j+1,k] = A[i,j+1,k] - dc;
 					}
-					if (k+1<M) {
+					if (k+1<M && A[i,j,k]!=-1 && A[i,j,k+1]!=-1) {
 						dc = dTerm*( A[i,j,k+1] - A[i,j,k] );
 						A[i,j,k] = A[i,j,k] + dc;
 						A[i,j,k+1] = A[i,j,k+1] - dc;
 					}
-					if (i-1>=0) {
+					if (i-1>=0 && A[i,j,k]!=-1 && A[i-1,j,k]!=-1) {
 						dc = dTerm*( A[i-1,j,k] - A[i,j,k] );
 						A[i,j,k] = A[i,j,k] + dc;
 						A[i-1,j,k] = A[i-1,j,k] - dc;
 					}
-					if (j-1>=0) {
+					if (j-1>=0 && A[i,j,k]!=-1 && A[i,j-1,k]!=-1) {
 						dc = dTerm*( A[i,j-1,k] - A[i,j,k] );
 						A[i,j,k] = A[i,j,k] + dc;
 						A[i,j-1,k] = A[i,j-1,k] - dc;
 					}
-					if (k-1>=0) {
+					if (k-1>=0 && A[i,j,k]!=-1 && A[i,j,k-1]!=-1) {
 						dc = dTerm*( A[i,j,k-1] - A[i,j,k] );
 						A[i,j,k] = A[i,j,k] + dc;
 						A[i,j,k-1] = A[i,j,k-1] - dc;

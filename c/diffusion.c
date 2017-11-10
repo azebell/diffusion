@@ -14,7 +14,9 @@ int main(int argc, char** argv) {
 	double* A;
 	double tstep, tacc;
 	double min, max;
-	double dTerm, dc;
+	double dTerm, dc, tmp;
+
+	int partition = 1;
 
 	const double C = 1e21;
 	const double L = 5;
@@ -28,7 +30,15 @@ int main(int argc, char** argv) {
 	for(i=0; i<M; i++) {
 		for(j=0; j<M; j++) {
 			for(k=0; k<M; k++) {
-				mval(A,i,j,k) = 0.0;
+				// if there is to be a partition
+				// assign -1 to the blocks 
+				// serving as the barrier
+				if(partition && i==M/2 && j>=M/2) {
+					mval(A,i,j,k) = -1.0;
+				}
+				else {
+					mval(A,i,j,k) = 0.0;
+				}
 			}
 		}
 	}
@@ -67,32 +77,32 @@ int main(int argc, char** argv) {
 			for(j=0; j<M; j++) {
 				for(k=0; k<M; k++) {
 
-					if(i+1<M) {
+					if(i+1<M && mval(A,i,j,k)!=-1 && mval(A,(i+1),j,k)!=-1) {
 						dc = dTerm*( mval(A,(i+1),j,k) - mval(A,i,j,k) );
 						mval(A,i,j,k) = mval(A,i,j,k) + dc;
 						mval(A,(i+1),j,k) = mval(A,(i+1),j,k) - dc;
 					}
-					if(j+1<M) {
+					if(j+1<M && mval(A,i,j,k)!=-1 && mval(A,i,(j+1),k)!=-1) {
 						dc = dTerm*( mval(A,i,(j+1),k) - mval(A,i,j,k) );
 						mval(A,i,j,k) = mval(A,i,j,k) + dc;
 						mval(A,i,(j+1),k) = mval(A,i,(j+1),k) - dc;
 					}
-					if(k+1<M) {
+					if(k+1<M && mval(A,i,j,k)!=-1 && mval(A,i,j,(k+1))!=-1) {
 						dc = dTerm*( mval(A,i,j,(k+1)) - mval(A,i,j,k) );
 						mval(A,i,j,k) = mval(A,i,j,k) + dc;
 						mval(A,i,j,(k+1)) = mval(A,i,j,(k+1)) - dc;
 					}
-					if(i-1>=0) {
+					if(i-1>=0 && mval(A,i,j,k)!=-1 && mval(A,(i-1),j,k)!=-1) {
 						dc = dTerm*( mval(A,(i-1),j,k) - mval(A,i,j,k) );
 						mval(A,i,j,k) = mval(A,i,j,k) + dc;
 						mval(A,(i-1),j,k) = mval(A,(i-1),j,k) - dc;
 					}
-					if(j-1>=0) {
+					if(j-1>=0 && mval(A,i,j,k)!=-1 && mval(A,i,(j-1),k)!=-1) {
 						dc = dTerm*( mval(A,i,(j-1),k) - mval(A,i,j,k) );
 						mval(A,i,j,k) = mval(A,i,j,k) + dc;
 						mval(A,i,(j-1),k) = mval(A,i,(j-1),k) - dc;
 					}
-					if(k-1>=0) {
+					if(k-1>=0  && mval(A,i,j,k)!=-1 && mval(A,i,j,(k-1))!=-1) {
 						dc = dTerm*( mval(A,i,j,(k-1)) - mval(A,i,j,k) );
 						mval(A,i,j,k) = mval(A,i,j,k) + dc;
 						mval(A,i,j,(k-1)) = mval(A,i,j,(k-1)) - dc;
@@ -108,7 +118,8 @@ int main(int argc, char** argv) {
 		for(i=0; i<M; i++) {
 			for(j=0; j<M; j++) {
 				for(k=0; k<M; k++) {
-					if(mval(A,i,j,k) < min)
+					tmp = mval(A,i,j,k);
+					if(tmp < min && tmp >= 0)
 						min = mval(A,i,j,k);
 					if(mval(A,i,j,k) > max)
 						max = mval(A,i,j,k);
