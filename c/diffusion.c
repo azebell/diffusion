@@ -20,9 +20,25 @@ int main(int argc, char** argv) {
 
 	const double C = 1e21;
 	const double L = 5;
-	const int M = 10;
+	int M = 10;
 	const double u = 250;
 	const double D = 0.175;
+	char pchoice;
+
+
+	printf("Input number of divisions M: ");
+	scanf(" %d", &M);
+	printf("Use a partition? (y/n): ");
+	scanf(" %c", &pchoice);
+	if(pchoice=='y') {
+		partition = 1;
+		printf("Using a partition.\n");
+	}
+	else {
+		partition = 0;
+		printf("Not using a partition.\n");
+	}
+
 
 	A = malloc(M*M*M * sizeof(double));
 
