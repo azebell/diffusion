@@ -12,9 +12,26 @@ static public void Main() {
 
 	double C = Math.Pow(10,21);
 	const double L = 5;
-	const int M = 10;
+	int M = 10;
 	const double u = 250;
 	const double D = 0.175;
+
+
+	//
+	// user input for M and partition
+	//
+	Console.Clear();
+	Console.Write("Input number of divisions M: ");
+	int.TryParse(Console.ReadLine(), out M);
+	if(M<1) { M = 10; }
+	Console.Write("Use a partition? (y/n): ");
+	partition = Console.Read()=='y';
+	if(partition) {
+		Console.WriteLine("\nUsing a partition.");
+	}
+	else {
+		Console.WriteLine("\nNot using a partition.");
+	}
 
 	double[,,] A = new double[M,M,M];
 
