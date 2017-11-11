@@ -8,6 +8,30 @@ D = 0.175
 
 partition = True
 
+#
+# user input for M and partition
+#
+print("Input number of divisions M: ")
+line = input()
+while len(line) < 1:
+	line = input()
+try: 
+	M = int(line)
+except ValueError:
+	M = 10
+
+print("Use a partition? (y/n): ")
+line = input()
+while len(line) < 1:
+	line = input()
+partition = line[0]=='y'
+if partition:
+	print("Using a partition.")
+else:
+	print("Not using a partition.")
+
+
+# allocate 3d array
 A = [[[0.0 for i in range(M)] for j in range(M)] for k in range(M)]
 
 tstep = L/(u*M)

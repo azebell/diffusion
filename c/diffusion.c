@@ -26,6 +26,9 @@ int main(int argc, char** argv) {
 	char pchoice;
 
 
+	//
+	// user input for M and partition
+	//
 	printf("Input number of divisions M: ");
 	scanf(" %d", &M);
 	printf("Use a partition? (y/n): ");
@@ -40,6 +43,7 @@ int main(int argc, char** argv) {
 	}
 
 
+	// allocated 3d array
 	A = malloc(M*M*M * sizeof(double));
 
 	// initialize the array values to 0

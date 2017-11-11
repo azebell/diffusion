@@ -33,6 +33,8 @@ static public void Main() {
 		Console.WriteLine("\nNot using a partition.");
 	}
 
+
+	// allocate 3d array
 	double[,,] A = new double[M,M,M];
 
 	// initialize the array values to 0
