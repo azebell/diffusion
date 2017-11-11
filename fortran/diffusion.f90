@@ -12,6 +12,7 @@ real, dimension(:,:,:), allocatable :: A
 integer :: mem_stat
 integer :: i, j, k
 logical :: partition = .true.
+character :: pchoice
 
 
 C = 1e21
@@ -19,6 +20,27 @@ L = 5.0
 M = 10
 u = 250
 D = 0.175
+
+
+!
+! user input for M and partition
+!
+print *, "Input number of divisions M: "
+read (*,*,iostat=mem_stat) M
+if (mem_stat .ne. 0) then
+    M = 10
+end if
+
+print *, "Use a partition? (y/n): "
+read *, pchoice
+if ( pchoice .eq. 'y' ) then
+    partition = .true.
+    print *, "Using a partition."
+else
+    partition = .false.
+    print *, "Not using a partition."
+end if
+
 
 tstep = L/(u*M)
 tacc = 0.0
