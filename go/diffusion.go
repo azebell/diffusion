@@ -11,7 +11,29 @@ func main() {
 	var u float64 = 250.0
 	var D float64 = 0.175
 
-	var partition = true
+	var partition = false
+	var part string
+
+
+	//
+	// user inpute for M and partition
+	//
+	fmt.Printf("Input number of divisions M: \n")
+	if _, err := fmt.Scan(&M); err == nil {
+		// successful inpput
+	} else {
+		// error handling
+	}
+	fmt.Printf("Use a partition? (y/n): \n")
+	if _, err := fmt.Scan(&part); err == nil {
+		// successful input
+		if part=="y" {
+			partition = true
+		}
+	} else {
+		// error handling
+	}
+
 
 	var tstep = L/(u*float64(M))
 	var tacc = 0.0
@@ -31,6 +53,12 @@ func main() {
 		}
 	}
 
+
+	if(partition) {
+		fmt.Printf("Using a partition.\n")
+	} else {
+		fmt.Printf("Not using a partition.\n")
+	}
 	fmt.Printf("C = %f\n", C)
 	fmt.Printf("L = %f\n", L)
 	fmt.Printf("M = %d\n", M)
