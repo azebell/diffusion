@@ -28,6 +28,22 @@ run: all
 	@echo "FORTRAN"
 	@echo "----------------"
 	fortran/diffusion.exe
+	@echo "----------------"
+	@echo "C#"
+	@echo "----------------"
+	mono csharp/diffusion.exe
+	@echo "----------------"
+	@echo "PYTHON"
+	@echo "----------------"
+	python3 python/diffusion.py
+	@echo "----------------"
+	@echo "GO"
+	@echo "----------------"
+	go run go/diffusion.go
+	@echo "----------------"
+	@echo "LISP"
+	@echo "----------------"
+	sbcl --script lisp/diffusion.lisp
 
 clean:
 	rm */*.exe
