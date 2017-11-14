@@ -16,7 +16,7 @@ $ cd c
 $ gcc diffusion.c -O3 -o diffusion.exe
 $ ./diffusion.exe
 ```
-## C#
+## C# #
 To compile and run the C# program:
 ```
 $ cd csharp
