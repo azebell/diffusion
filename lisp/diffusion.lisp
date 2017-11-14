@@ -24,7 +24,6 @@
 )
 (format t "Use a partition? (y/n): ~%")
 (let ((s (read-line)))
-	(format t "~s~%" s)
 	(if (char= (char s 0) #\y)
 		(setf partition t)
 		(setf partition nil)
@@ -72,11 +71,10 @@
 (format t "M = ~d~%" M)
 (format t "tstep = ~d~%" tstep)
 (format t "dTerm = ~d~%" dTerm)
+(format t "~%")
 
 (defvar maxval C)
 (defvar minval 0)
-(format t "max = ~d~%" maxval)
-(format t "min = ~d~%" minval)
 
 
 ; for each block in the room,
@@ -142,7 +140,6 @@
 	(when (> (/ minval maxval) 0.99) (return))
 )
 
-(format t "~%")
 (format t "tacc ~d seconds~%" tacc)
 (format t "max = ~d~%" maxval)
 (format t "min = ~d~%" minval)

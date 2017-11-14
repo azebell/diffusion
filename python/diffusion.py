@@ -119,6 +119,7 @@ while smallest <= 0.99*biggest:
 				if A[i][j][k]>biggest:
 					biggest = A[i][j][k]
 
+print("")
 print("Time", tacc, "seconds")
 print("min", smallest)
 print("max", biggest)
