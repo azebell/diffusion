@@ -5,10 +5,29 @@
 (defvar u 250d0)
 (defvar Dif 0.175d0)
 (defvar M 10)
+(defvar partition t)
 
 
 (defvar A)
 (setf A (make-array (list M M M) :element-type 'double-float))
+
+
+; if there is a partition
+; assign -1 to the blocks that
+; serve as the barrier
+(when partition 
+	(dotimes(i M)
+		(dotimes(j M)
+			(dotimes(k M)
+				(when (and (= i (floor (/ (- M 1) 2))) (>= J (floor (/ (- M 1) 2))))
+					(format t "~d~%" (aref A i j k))
+					(setf (aref A i j k) -1d0)
+					(format t "~d~%" (aref A i j k))
+				)
+			)
+		)
+	)
+)
 
 ; set the starting position of the
 ; concentration of particles
